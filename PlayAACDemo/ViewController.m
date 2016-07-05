@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "KBAudioPlayer.h"
 
-@interface ViewController ()
+@interface ViewController (){
+    KBAudioPlayer *audioPlayer;
+}
 
 @end
 
@@ -17,6 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    audioPlayer = [[KBAudioPlayer alloc] init];
+    audioPlayer.fileType = kAudioFileAAC_ADTSType;
+
 }
 
 - (void)didReceiveMemoryWarning {
