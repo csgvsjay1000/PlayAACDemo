@@ -107,7 +107,9 @@
         [retData appendData:block.data];
     }
     NSRange removeRange = NSMakeRange(0, count);
-    [_bufferBlockArray removeObjectsInRange:removeRange];
+    if (removeRange.location+removeRange.length<_bufferBlockArray.count) {
+        [_bufferBlockArray removeObjectsInRange:removeRange];
+    }
     
     _bufferedSize -= retData.length;
     

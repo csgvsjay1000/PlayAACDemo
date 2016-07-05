@@ -20,6 +20,8 @@
 		4C5C63051D2BB4900013C333 /* nocturne.aac in Resources */ = {isa = PBXBuildFile; fileRef = 4C5C63041D2BB4900013C333 /* nocturne.aac */; };
 		4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C63071D2BBB850013C333 /* MCParsedAudioData.m */; };
 		4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C630A1D2BBC790013C333 /* MCAudioBuffer.m */; };
+		4C5C630F1D2BC4B80013C333 /* KBAudioPlayer1_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C630E1D2BC4B80013C333 /* KBAudioPlayer1_1.m */; };
+		4C5C63111D2BC4FA0013C333 /* cuc_ieschool.flv in Resources */ = {isa = PBXBuildFile; fileRef = 4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,9 @@
 		4C5C63071D2BBB850013C333 /* MCParsedAudioData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCParsedAudioData.m; sourceTree = "<group>"; };
 		4C5C63091D2BBC790013C333 /* MCAudioBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioBuffer.h; sourceTree = "<group>"; };
 		4C5C630A1D2BBC790013C333 /* MCAudioBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioBuffer.m; sourceTree = "<group>"; };
+		4C5C630D1D2BC4B80013C333 /* KBAudioPlayer1_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBAudioPlayer1_1.h; sourceTree = "<group>"; };
+		4C5C630E1D2BC4B80013C333 /* KBAudioPlayer1_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBAudioPlayer1_1.m; sourceTree = "<group>"; };
+		4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */ = {isa = PBXFileReference; lastKnownFileType = file; path = cuc_ieschool.flv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +126,7 @@
 				4C5C62D11D2BA9C80013C333 /* ViewController.h */,
 				4C5C62D21D2BA9C80013C333 /* ViewController.m */,
 				4C5C62FE1D2BAB070013C333 /* 0_0 */,
+				4C5C630C1D2BC4880013C333 /* 1_1 */,
 				4C5C62D41D2BA9C80013C333 /* Main.storyboard */,
 				4C5C62D71D2BA9C80013C333 /* Assets.xcassets */,
 				4C5C62D91D2BA9C80013C333 /* LaunchScreen.storyboard */,
@@ -133,6 +139,7 @@
 		4C5C62CB1D2BA9C70013C333 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */,
 				4C5C63041D2BB4900013C333 /* nocturne.aac */,
 				4C5C62CC1D2BA9C70013C333 /* main.m */,
 			);
@@ -168,6 +175,15 @@
 				4C5C630A1D2BBC790013C333 /* MCAudioBuffer.m */,
 			);
 			name = 0_0;
+			sourceTree = "<group>";
+		};
+		4C5C630C1D2BC4880013C333 /* 1_1 */ = {
+			isa = PBXGroup;
+			children = (
+				4C5C630D1D2BC4B80013C333 /* KBAudioPlayer1_1.h */,
+				4C5C630E1D2BC4B80013C333 /* KBAudioPlayer1_1.m */,
+			);
+			path = 1_1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5C63111D2BC4FA0013C333 /* cuc_ieschool.flv in Resources */,
 				4C5C62DB1D2BA9C80013C333 /* LaunchScreen.storyboard in Resources */,
 				4C5C63051D2BB4900013C333 /* nocturne.aac in Resources */,
 				4C5C62D81D2BA9C80013C333 /* Assets.xcassets in Resources */,
@@ -304,6 +321,7 @@
 				4C5C62D31D2BA9C80013C333 /* ViewController.m in Sources */,
 				4C5C62D01D2BA9C80013C333 /* AppDelegate.m in Sources */,
 				4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */,
+				4C5C630F1D2BC4B80013C333 /* KBAudioPlayer1_1.m in Sources */,
 				4C5C63011D2BAB440013C333 /* KBAudioPlayer.m in Sources */,
 				4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */,
 				4C5C62CD1D2BA9C70013C333 /* main.m in Sources */,
