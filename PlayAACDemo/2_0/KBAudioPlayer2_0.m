@@ -95,15 +95,13 @@
             case TAG_TYPE_SCRIPT:sprintf(tagtype_str,"SCRIPT");break;
             default:sprintf(tagtype_str,"UNKNOWN");break;
         }
-        printf("[%6s] %6d %6d |",tagtype_str,tagheader_datasize,tagheader_timestamp);
-
+        printf("[%6s] %6d %6d \n",tagtype_str,tagheader_datasize,tagheader_timestamp);
+        
         switch (tagheader.TagType) {
             case TAG_TYPE_AUDIO:{
                 char tagdata_first_byte;
                 tagdata_first_byte=fgetc(ifh);
-                
-                printf("%c",tagdata_first_byte);
-                
+
                 char isACCsequenceHeader = fgetc(ifh);
                 int data_size=reverse_bytes((byte *)&tagheader.DataSize, sizeof(tagheader.DataSize))-1;
                 if(isACCsequenceHeader == 0x00){
@@ -116,12 +114,15 @@
                 }
                 write_adst_header(data_size, aacBuffer);
                 if (fread(aacBuffer+7, 1, data_size, ifh) == data_size) {
-                    
+                    NSData *data = [[NSData alloc] initWithBytes:aacBuffer length:data_size+7];
+                    [self parseData:data error:nil];
                 }
                 
                 break;
             }
-            default:break;
+            default:
+                fseek(ifh, reverse_bytes((byte *)&tagheader.DataSize, sizeof(tagheader.DataSize)), SEEK_CUR);
+                break;
         }
         
         
@@ -197,6 +198,7 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
                      numberOfPackets:(UInt32)numberOfPackets
                   packetDescriptions:(AudioStreamPacketDescription *)packetDescriptioins{
     NSLog(@"numberOfBytes %d",numberOfBytes);
+    
     
 }
 
