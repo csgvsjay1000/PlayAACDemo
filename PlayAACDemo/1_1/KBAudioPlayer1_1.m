@@ -200,16 +200,41 @@ uint reverse_bytes(byte *p, char c) {
                 }
                 fprintf(myout,"%s",audiotag_str);
                 
-        
-                //TagData - First Byte Data
+                char isACCsequenceHeader = fgetc(ifh);
                 int data_size=reverse_bytes((byte *)&tagheader.DataSize, sizeof(tagheader.DataSize))-1;
-                if (fread(aacBuffer, 1, data_size, ifh) == data_size) {
-                    NSData *data = [[NSData alloc] initWithBytes:aacBuffer length:data_size];
+                if(isACCsequenceHeader == 0x00){
+                    char *ACCsequenceHeader = (char *)malloc(sizeof(char)*2);
+                    fread(ACCsequenceHeader, sizeof(char), 2, ifh);
+                    
+                    data_size -= 3;
+                    //
+                    //                int audioObjectType = (ACCsequenceHeader[0]&0xf8)>>3;
+                    //                int samplingFrequencyIndex = ((ACCsequenceHeader[0]&0x7)<<1)|(ACCsequenceHeader[1]>>7);
+                    //                int channelConfiguration = (ACCsequenceHeader[1]>>3)&0x0f;
+                    //                int extensionFlag = (ACCsequenceHeader[1]&0x01);
+                    
+                }else if (isACCsequenceHeader == 0x01){
+                    data_size -= 1;
+                }
+
+                //TagData - First Byte Data
+                
+                
+                
+                write_adst_header(data_size, aacBuffer);
+                
+//        
+//                //TagData - First Byte Data
+//                int data_size=reverse_bytes((byte *)&tagheader.DataSize, sizeof(tagheader.DataSize))-1;
+                
+                if (fread(aacBuffer+7, 1, data_size, ifh) == data_size) {
+                    NSData *data = [[NSData alloc] initWithBytes:aacBuffer length:data_size+7];
                     [self parseData:data error:nil];
                 }
                 if (_format.mSampleRate>0 && !isStart ) {
                     isStart = YES;
-                    [self playAudio];
+//                    [self playAudio];
+                    [NSThread detachNewThreadSelector:@selector(playAudio) toTarget:self withObject:nil];
                 }
                 
 //                for (int i=0; i<data_size; i++)
@@ -406,6 +431,46 @@ static void AQueueOutputCallback(
     }
     NSError *error;
     [self _errorForOSStatus:status error:&error];
+}
+
+void write_adst_header(int size,char *puf){
+    int syncword = 0xfff;  //12
+    uint8_t ID = 0;  //1
+    uint8_t layer = 0;  //2
+    uint8_t protection_absent = 1;  //1
+    
+    //3 byte
+    int profile = 1;  //2
+    int sampling_frequency_index = 7;  //4
+    
+    int private_bit = 0;  //1
+    int channel_configuration = 2;  //3
+    
+    int original_copy = 0;  //1
+    int home = 0;  //1
+    
+    int copyright_identification_bit = 0;  //1
+    int copyright_identification_start = 0;  //1
+    
+    int aac_frame_length = 7+size;  //13     first2bit 4byte
+    int adts_buffer_fullness = 0;  //11   0x7ff
+    int number_of_raw_data_blocks_in_frame = 0;//2
+    
+    
+//    char *puf = (char *)malloc(sizeof(char)*7);
+    
+    puf[0] = syncword;
+    puf[1] = (syncword&0xf0)|(ID&0xf8)|(layer&0xf6)|(protection_absent&0xf1);
+    puf[2] = ((profile<<6))|(sampling_frequency_index<<2)|(private_bit<<1)|(channel_configuration>>2);
+    puf[3] = (channel_configuration<<6)|(original_copy<<5)|(home<<4)|(copyright_identification_bit<<3)|(copyright_identification_start<<2)|(aac_frame_length>>11);
+    
+    puf[4] = (aac_frame_length>>2);
+    puf[5] = (aac_frame_length>>10)|(adts_buffer_fullness<<6);
+    puf[6] = (adts_buffer_fullness>>5)|(number_of_raw_data_blocks_in_frame);
+    
+    
+//    fwrite(puf, 1, 7, ifh);
+//    free(puf);
 }
 
 @end

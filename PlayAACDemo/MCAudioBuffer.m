@@ -62,6 +62,9 @@
 
 - (NSData *)dequeueDataWithSize:(UInt32)requestSize packetCount:(UInt32 *)packetCount descriptions:(AudioStreamPacketDescription **)descriptions
 {
+    
+    
+    
     SInt64 size = requestSize;
     int i = 0;
     for (i = 0; i < _bufferBlockArray.count ; ++i)

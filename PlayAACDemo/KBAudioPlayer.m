@@ -76,7 +76,11 @@ typedef enum : NSUInteger {
             for (int i=0; i<3; i++) {
                 OSStatus statu = AudioQueueAllocateBuffer(playQueue, audio_buf_size, &playBufs[i]);
                 if (statu == noErr) {
-                    [self readPacketsIntoBuffer:playBufs[i]];
+                    while (![self readPacketsIntoBuffer:playBufs[i]]) {
+                        sleep(0.1);
+                    }
+                    
+                    
                 }
             }
         }
@@ -139,10 +143,13 @@ static void AQueueOutputCallback(
     [_buffer enqueueFromDataArray:parsedDataArray];
 }
 
--(void)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer{
+-(BOOL)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer{
     UInt32 packetCount;
     AudioStreamPacketDescription *desces = NULL;
     NSData *data = [_buffer dequeueDataWithSize:audio_buf_size packetCount:&packetCount descriptions:&desces];
+    if (!data) {
+        return NO;
+    }
     
     memcpy(buffer->mAudioData, [data bytes], [data length]);
     buffer->mAudioDataByteSize = (UInt32)[data length];
@@ -150,8 +157,12 @@ static void AQueueOutputCallback(
     OSStatus status = AudioQueueEnqueueBuffer(playQueue, buffer, packetCount, desces);
     if (status != noErr) {
         printf("AudioQueueEnqueueBuffer error\n");
+        return NO;
+
     }else{
         printf("AudioQueueEnqueueBuffer Success\n");
+        return YES;
+
     }
 }
 

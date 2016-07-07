@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C439ADE1D2E45E3005A961B /* KBAudioPlayer2_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C439ADD1D2E45E2005A961B /* KBAudioPlayer2_0.m */; };
+		4C439AE21D2E4A2F005A961B /* KBAudioOutputQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C439AE11D2E4A2F005A961B /* KBAudioOutputQueue.m */; };
+		4C439AE51D2E4A84005A961B /* MCAudioBuffer2_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C439AE41D2E4A84005A961B /* MCAudioBuffer2_0.m */; };
 		4C5C62CD1D2BA9C70013C333 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C62CC1D2BA9C70013C333 /* main.m */; };
 		4C5C62D01D2BA9C80013C333 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C62CF1D2BA9C80013C333 /* AppDelegate.m */; };
 		4C5C62D31D2BA9C80013C333 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C62D21D2BA9C80013C333 /* ViewController.m */; };
@@ -20,7 +23,6 @@
 		4C5C63051D2BB4900013C333 /* nocturne.aac in Resources */ = {isa = PBXBuildFile; fileRef = 4C5C63041D2BB4900013C333 /* nocturne.aac */; };
 		4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C63071D2BBB850013C333 /* MCParsedAudioData.m */; };
 		4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C630A1D2BBC790013C333 /* MCAudioBuffer.m */; };
-		4C5C630F1D2BC4B80013C333 /* KBAudioPlayer1_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C630E1D2BC4B80013C333 /* KBAudioPlayer1_1.m */; };
 		4C5C63111D2BC4FA0013C333 /* cuc_ieschool.flv in Resources */ = {isa = PBXBuildFile; fileRef = 4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C439ADC1D2E45E2005A961B /* KBAudioPlayer2_0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBAudioPlayer2_0.h; sourceTree = "<group>"; };
+		4C439ADD1D2E45E2005A961B /* KBAudioPlayer2_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBAudioPlayer2_0.m; sourceTree = "<group>"; };
+		4C439ADF1D2E47E3005A961B /* KBAudioHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBAudioHeader.h; sourceTree = "<group>"; };
+		4C439AE01D2E4A2F005A961B /* KBAudioOutputQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBAudioOutputQueue.h; sourceTree = "<group>"; };
+		4C439AE11D2E4A2F005A961B /* KBAudioOutputQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBAudioOutputQueue.m; sourceTree = "<group>"; };
+		4C439AE31D2E4A84005A961B /* MCAudioBuffer2_0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAudioBuffer2_0.h; sourceTree = "<group>"; };
+		4C439AE41D2E4A84005A961B /* MCAudioBuffer2_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioBuffer2_0.m; sourceTree = "<group>"; };
 		4C5C62C81D2BA9C70013C333 /* PlayAACDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayAACDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5C62CC1D2BA9C70013C333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C5C62CE1D2BA9C70013C333 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -97,6 +106,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C439ADB1D2E45B6005A961B /* 2_0 */ = {
+			isa = PBXGroup;
+			children = (
+				4C439ADC1D2E45E2005A961B /* KBAudioPlayer2_0.h */,
+				4C439ADD1D2E45E2005A961B /* KBAudioPlayer2_0.m */,
+				4C439AE01D2E4A2F005A961B /* KBAudioOutputQueue.h */,
+				4C439AE11D2E4A2F005A961B /* KBAudioOutputQueue.m */,
+				4C439AE31D2E4A84005A961B /* MCAudioBuffer2_0.h */,
+				4C439AE41D2E4A84005A961B /* MCAudioBuffer2_0.m */,
+				4C439ADF1D2E47E3005A961B /* KBAudioHeader.h */,
+			);
+			path = 2_0;
+			sourceTree = "<group>";
+		};
 		4C5C62BF1D2BA9C70013C333 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +150,7 @@
 				4C5C62D21D2BA9C80013C333 /* ViewController.m */,
 				4C5C62FE1D2BAB070013C333 /* 0_0 */,
 				4C5C630C1D2BC4880013C333 /* 1_1 */,
+				4C439ADB1D2E45B6005A961B /* 2_0 */,
 				4C5C62D41D2BA9C80013C333 /* Main.storyboard */,
 				4C5C62D71D2BA9C80013C333 /* Assets.xcassets */,
 				4C5C62D91D2BA9C80013C333 /* LaunchScreen.storyboard */,
@@ -320,8 +344,10 @@
 			files = (
 				4C5C62D31D2BA9C80013C333 /* ViewController.m in Sources */,
 				4C5C62D01D2BA9C80013C333 /* AppDelegate.m in Sources */,
+				4C439ADE1D2E45E3005A961B /* KBAudioPlayer2_0.m in Sources */,
 				4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */,
-				4C5C630F1D2BC4B80013C333 /* KBAudioPlayer1_1.m in Sources */,
+				4C439AE51D2E4A84005A961B /* MCAudioBuffer2_0.m in Sources */,
+				4C439AE21D2E4A2F005A961B /* KBAudioOutputQueue.m in Sources */,
 				4C5C63011D2BAB440013C333 /* KBAudioPlayer.m in Sources */,
 				4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */,
 				4C5C62CD1D2BA9C70013C333 /* main.m in Sources */,
