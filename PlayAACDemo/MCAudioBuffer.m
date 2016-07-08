@@ -10,10 +10,13 @@
 
 @interface MCAudioBuffer ()
 {
-@private
-    NSMutableArray *_bufferBlockArray;
-    UInt32 _bufferedSize;
+
+    
 }
+
+@property(atomic,assign)UInt32  bufferedSize;
+@property(atomic,strong)NSMutableArray *bufferBlockArray;
+
 @end
 
 @implementation MCAudioBuffer
@@ -119,6 +122,8 @@
     return retData;
     
 }
+
+
 
 
 @end

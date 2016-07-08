@@ -8,10 +8,13 @@
 
 #import "KBAudioPlayer2_0.h"
 #import "KBAudioHeader.h"
-#import "MCAudioBuffer2_0.h"
+#import "MCAudioBuffer.h"
+#import "MCParsedAudioData.h"
+
+const NSInteger readBufferMaxSize = 2096*10;
 
 @interface KBAudioPlayer2_0 (){
-    MCAudioBuffer2_0 *_buffer;
+    MCAudioBuffer *_buffer;
     UInt32 _bufferSize;
     
     UInt32 _readFileBufSize;
@@ -21,6 +24,12 @@
     AudioFileStreamID _audioFileStreamID;
     
     AudioStreamBasicDescription _format;
+    
+    BOOL _readyToProducePackets;
+    
+    AudioQueueRef playQueue;
+    AudioQueueBufferRef playBufs[3];
+
     
 }
 
@@ -34,7 +43,7 @@
 -(id)init{
     self = [super init];
     if (self) {
-        _buffer = [MCAudioBuffer2_0 buffer];
+        _buffer = [MCAudioBuffer buffer];
     }
     return self;
 }
@@ -47,7 +56,7 @@
     
     [NSThread detachNewThreadSelector:@selector(readFLVThread) toTarget:self withObject:nil];
     
-//    [NSThread detachNewThreadSelector:@selector(threadMain) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(threadMain) toTarget:self withObject:nil];
     
 }
 
@@ -81,6 +90,11 @@
     aacBuffer = malloc(sizeof(char)*_readFileBufSize);
     
     do {
+        printf("[_buffer bufferedSize] %d\n",[_buffer bufferedSize]);
+        if ([_buffer bufferedSize]>readBufferMaxSize) {
+            usleep(10*1000);
+            continue;
+        }
         
         previoustagsize = getw(ifh);
         
@@ -133,16 +147,75 @@
 -(void)threadMain{
     
     _bufferSize = 2098;
-    
+    self.status = MCSAPStatusPlaying;
     while (self.status != MCSAPStatusStopped) {
         
-        if ([_buffer bufferedSize]<_bufferSize) {
-            
+//        if ([_buffer bufferedSize]<_bufferSize) {
+//            
+//        }
+        
+        if (_readyToProducePackets) {
+            [self createQueue];
+            break;
         }
+        
         
     }
     
 }
+
+-(void)createQueue{
+    
+    if (playQueue) {
+        return;
+    }
+    if (_readyToProducePackets) {
+        AudioQueueNewOutput(&_format, AQueueOutputCallback, (__bridge void*)self, NULL, NULL, 0, &playQueue);
+        AudioQueueStart(playQueue, NULL);
+        
+        for (int i=0; i<3; i++) {
+            OSStatus statu = AudioQueueAllocateBuffer(playQueue, _bufferSize, &playBufs[i]);
+            if (statu == noErr) {
+                [self readPacketsIntoBuffer:playBufs[i]];
+            }
+        }
+    }
+    
+    
+}
+
+static void AQueueOutputCallback(
+                                 void * __nullable       inUserData,
+                                 AudioQueueRef           inAQ,
+                                 AudioQueueBufferRef     inBuffer){
+    KBAudioPlayer2_0 *vc = (__bridge KBAudioPlayer2_0 *)inUserData;
+    [vc readPacketsIntoBuffer:inBuffer];
+}
+
+-(BOOL)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer{
+    UInt32 packetCount;
+    AudioStreamPacketDescription *desces = NULL;
+    NSData *data = [_buffer dequeueDataWithSize:_bufferSize packetCount:&packetCount descriptions:&desces];
+    if (!data) {
+        return NO;
+    }
+    
+    memcpy(buffer->mAudioData, [data bytes], [data length]);
+    buffer->mAudioDataByteSize = (UInt32)[data length];
+    
+    OSStatus status = AudioQueueEnqueueBuffer(playQueue, buffer, packetCount, desces);
+    if (status != noErr) {
+        printf("AudioQueueEnqueueBuffer error\n");
+        return NO;
+        
+    }else{
+        printf("AudioQueueEnqueueBuffer Success\n");
+        return YES;
+        
+    }
+}
+
+
 
 - (BOOL)parseData:(NSData *)data error:(NSError **)error{
     
@@ -190,6 +263,8 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
     if (propertyID == kAudioFileStreamProperty_DataFormat){
         UInt32 asbdSize = sizeof(_format);
         AudioFileStreamGetProperty(_audioFileStreamID, kAudioFileStreamProperty_DataFormat, &asbdSize, &_format);
+    }else if (propertyID == kAudioFileStreamProperty_ReadyToProducePackets){
+        _readyToProducePackets = YES;
     }
 }
 
@@ -197,8 +272,16 @@ static void MCAudioFileStreamPacketsCallBack(void *inClientData,
                        numberOfBytes:(UInt32)numberOfBytes
                      numberOfPackets:(UInt32)numberOfPackets
                   packetDescriptions:(AudioStreamPacketDescription *)packetDescriptioins{
-    NSLog(@"numberOfBytes %d",numberOfBytes);
-    
+    NSLog(@"numberOfPackets %d",numberOfPackets);
+    NSMutableArray *parsedDataArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < numberOfPackets; ++i){
+        SInt64 packetOffset = packetDescriptioins[i].mStartOffset;
+        MCParsedAudioData *parsedData = [MCParsedAudioData parsedAudioDataWithBytes:packets + packetOffset
+                                                                  packetDescription:packetDescriptioins[i]];
+        
+        [parsedDataArray addObject:parsedData];
+    }
+    [_buffer enqueueFromDataArray:parsedDataArray];
     
 }
 
