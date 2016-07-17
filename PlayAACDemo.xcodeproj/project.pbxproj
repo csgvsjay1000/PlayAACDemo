@@ -24,6 +24,9 @@
 		4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C63071D2BBB850013C333 /* MCParsedAudioData.m */; };
 		4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C630A1D2BBC790013C333 /* MCAudioBuffer.m */; };
 		4C5C63111D2BC4FA0013C333 /* cuc_ieschool.flv in Resources */ = {isa = PBXBuildFile; fileRef = 4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */; };
+		B2AD0C241D320C4500DDDE12 /* KBVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AD0C231D320C4500DDDE12 /* KBVideoPlayerController.m */; };
+		B2F638FA1D3B2F28001CCAB6 /* test.h264 in Resources */ = {isa = PBXBuildFile; fileRef = B2F638F91D3B2F28001CCAB6 /* test.h264 */; };
+		B2F638FD1D3B3064001CCAB6 /* AAPLEAGLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F638FC1D3B3064001CCAB6 /* AAPLEAGLLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,11 @@
 		4C5C630D1D2BC4B80013C333 /* KBAudioPlayer1_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBAudioPlayer1_1.h; sourceTree = "<group>"; };
 		4C5C630E1D2BC4B80013C333 /* KBAudioPlayer1_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBAudioPlayer1_1.m; sourceTree = "<group>"; };
 		4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */ = {isa = PBXFileReference; lastKnownFileType = file; path = cuc_ieschool.flv; sourceTree = "<group>"; };
+		B2AD0C221D320C4500DDDE12 /* KBVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBVideoPlayerController.h; sourceTree = "<group>"; };
+		B2AD0C231D320C4500DDDE12 /* KBVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBVideoPlayerController.m; sourceTree = "<group>"; };
+		B2F638F91D3B2F28001CCAB6 /* test.h264 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.h264; sourceTree = "<group>"; };
+		B2F638FB1D3B3064001CCAB6 /* AAPLEAGLLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLEAGLLayer.h; sourceTree = "<group>"; };
+		B2F638FC1D3B3064001CCAB6 /* AAPLEAGLLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLEAGLLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +159,7 @@
 				4C5C62FE1D2BAB070013C333 /* 0_0 */,
 				4C5C630C1D2BC4880013C333 /* 1_1 */,
 				4C439ADB1D2E45B6005A961B /* 2_0 */,
+				B2AD0C1E1D320AF700DDDE12 /* 3_0 */,
 				4C5C62D41D2BA9C80013C333 /* Main.storyboard */,
 				4C5C62D71D2BA9C80013C333 /* Assets.xcassets */,
 				4C5C62D91D2BA9C80013C333 /* LaunchScreen.storyboard */,
@@ -163,6 +172,7 @@
 		4C5C62CB1D2BA9C70013C333 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2F638F91D3B2F28001CCAB6 /* test.h264 */,
 				4C5C63101D2BC4FA0013C333 /* cuc_ieschool.flv */,
 				4C5C63041D2BB4900013C333 /* nocturne.aac */,
 				4C5C62CC1D2BA9C70013C333 /* main.m */,
@@ -208,6 +218,17 @@
 				4C5C630E1D2BC4B80013C333 /* KBAudioPlayer1_1.m */,
 			);
 			path = 1_1;
+			sourceTree = "<group>";
+		};
+		B2AD0C1E1D320AF700DDDE12 /* 3_0 */ = {
+			isa = PBXGroup;
+			children = (
+				B2AD0C221D320C4500DDDE12 /* KBVideoPlayerController.h */,
+				B2AD0C231D320C4500DDDE12 /* KBVideoPlayerController.m */,
+				B2F638FB1D3B3064001CCAB6 /* AAPLEAGLLayer.h */,
+				B2F638FC1D3B3064001CCAB6 /* AAPLEAGLLayer.m */,
+			);
+			path = 3_0;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +339,7 @@
 				4C5C63051D2BB4900013C333 /* nocturne.aac in Resources */,
 				4C5C62D81D2BA9C80013C333 /* Assets.xcassets in Resources */,
 				4C5C62D61D2BA9C80013C333 /* Main.storyboard in Resources */,
+				B2F638FA1D3B2F28001CCAB6 /* test.h264 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,11 +366,13 @@
 			files = (
 				4C5C62D31D2BA9C80013C333 /* ViewController.m in Sources */,
 				4C5C62D01D2BA9C80013C333 /* AppDelegate.m in Sources */,
+				B2F638FD1D3B3064001CCAB6 /* AAPLEAGLLayer.m in Sources */,
 				4C439ADE1D2E45E3005A961B /* KBAudioPlayer2_0.m in Sources */,
 				4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */,
 				4C439AE51D2E4A84005A961B /* MCAudioBuffer2_0.m in Sources */,
 				4C439AE21D2E4A2F005A961B /* KBAudioOutputQueue.m in Sources */,
 				4C5C63011D2BAB440013C333 /* KBAudioPlayer.m in Sources */,
+				B2AD0C241D320C4500DDDE12 /* KBVideoPlayerController.m in Sources */,
 				4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */,
 				4C5C62CD1D2BA9C70013C333 /* main.m in Sources */,
 			);
@@ -492,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PlayAACDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.3glasses.PlayAACDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -503,6 +528,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PlayAACDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.3glasses.PlayAACDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
