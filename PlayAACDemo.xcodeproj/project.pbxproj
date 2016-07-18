@@ -10,6 +10,8 @@
 		4C439AE21D2E4A2F005A961B /* KBAudioOutputQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C439AE11D2E4A2F005A961B /* KBAudioOutputQueue.m */; };
 		4C439AE51D2E4A84005A961B /* MCAudioBuffer2_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C439AE41D2E4A84005A961B /* MCAudioBuffer2_0.m */; };
 		4C533E4F1D3CB11700E7E93B /* KBVideoPlayerController1_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C533E4E1D3CB11700E7E93B /* KBVideoPlayerController1_0.m */; };
+		4C533E551D3CDAEE00E7E93B /* avcodec.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C533E531D3CDAEE00E7E93B /* avcodec.c */; };
+		4C533E591D3CDB7900E7E93B /* avformat.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C533E571D3CDB7900E7E93B /* avformat.c */; };
 		4C5C62CD1D2BA9C70013C333 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C62CC1D2BA9C70013C333 /* main.m */; };
 		4C5C62D01D2BA9C80013C333 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C62CF1D2BA9C80013C333 /* AppDelegate.m */; };
 		4C5C62D31D2BA9C80013C333 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5C62D21D2BA9C80013C333 /* ViewController.m */; };
@@ -56,6 +58,11 @@
 		4C439AE41D2E4A84005A961B /* MCAudioBuffer2_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAudioBuffer2_0.m; sourceTree = "<group>"; };
 		4C533E4D1D3CB11700E7E93B /* KBVideoPlayerController1_0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBVideoPlayerController1_0.h; sourceTree = "<group>"; };
 		4C533E4E1D3CB11700E7E93B /* KBVideoPlayerController1_0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBVideoPlayerController1_0.m; sourceTree = "<group>"; };
+		4C533E501D3CD86700E7E93B /* KBPlayerHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBPlayerHeader.h; sourceTree = "<group>"; };
+		4C533E531D3CDAEE00E7E93B /* avcodec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = avcodec.c; sourceTree = "<group>"; };
+		4C533E541D3CDAEE00E7E93B /* avcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avcodec.h; sourceTree = "<group>"; };
+		4C533E571D3CDB7900E7E93B /* avformat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = avformat.c; sourceTree = "<group>"; };
+		4C533E581D3CDB7900E7E93B /* avformat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avformat.h; sourceTree = "<group>"; };
 		4C5C62C81D2BA9C70013C333 /* PlayAACDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayAACDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5C62CC1D2BA9C70013C333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C5C62CE1D2BA9C70013C333 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -135,8 +142,37 @@
 			children = (
 				4C533E4D1D3CB11700E7E93B /* KBVideoPlayerController1_0.h */,
 				4C533E4E1D3CB11700E7E93B /* KBVideoPlayerController1_0.m */,
+				4C533E501D3CD86700E7E93B /* KBPlayerHeader.h */,
+				4C533E511D3CDA0400E7E93B /* kbmpeg */,
 			);
 			path = 4_0;
+			sourceTree = "<group>";
+		};
+		4C533E511D3CDA0400E7E93B /* kbmpeg */ = {
+			isa = PBXGroup;
+			children = (
+				4C533E561D3CDB5600E7E93B /* libavformat */,
+				4C533E521D3CDA0400E7E93B /* libavcodec */,
+			);
+			path = kbmpeg;
+			sourceTree = "<group>";
+		};
+		4C533E521D3CDA0400E7E93B /* libavcodec */ = {
+			isa = PBXGroup;
+			children = (
+				4C533E531D3CDAEE00E7E93B /* avcodec.c */,
+				4C533E541D3CDAEE00E7E93B /* avcodec.h */,
+			);
+			path = libavcodec;
+			sourceTree = "<group>";
+		};
+		4C533E561D3CDB5600E7E93B /* libavformat */ = {
+			isa = PBXGroup;
+			children = (
+				4C533E571D3CDB7900E7E93B /* avformat.c */,
+				4C533E581D3CDB7900E7E93B /* avformat.h */,
+			);
+			path = libavformat;
 			sourceTree = "<group>";
 		};
 		4C5C62BF1D2BA9C70013C333 = {
@@ -379,10 +415,12 @@
 				4C5C62D31D2BA9C80013C333 /* ViewController.m in Sources */,
 				4C5C62D01D2BA9C80013C333 /* AppDelegate.m in Sources */,
 				B2F638FD1D3B3064001CCAB6 /* AAPLEAGLLayer.m in Sources */,
+				4C533E591D3CDB7900E7E93B /* avformat.c in Sources */,
 				4C5C630B1D2BBC790013C333 /* MCAudioBuffer.m in Sources */,
 				4C439AE51D2E4A84005A961B /* MCAudioBuffer2_0.m in Sources */,
 				4C439AE21D2E4A2F005A961B /* KBAudioOutputQueue.m in Sources */,
 				4C5C63011D2BAB440013C333 /* KBAudioPlayer.m in Sources */,
+				4C533E551D3CDAEE00E7E93B /* avcodec.c in Sources */,
 				4C533E4F1D3CB11700E7E93B /* KBVideoPlayerController1_0.m in Sources */,
 				B2AD0C241D320C4500DDDE12 /* KBVideoPlayerController.m in Sources */,
 				4C5C63081D2BBB850013C333 /* MCParsedAudioData.m in Sources */,
