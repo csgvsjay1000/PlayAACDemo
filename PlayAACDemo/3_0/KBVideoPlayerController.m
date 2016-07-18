@@ -11,6 +11,9 @@
 #import <VideoToolbox/VideoToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
+#define h264outputWidth 480
+#define h264outputHeight 640
+
 typedef enum {
     NALU_TYPE_SLICE    = 1,
     NALU_TYPE_DPA      = 2,
@@ -115,24 +118,47 @@ static void didDecompress( void *decompressionOutputRefCon, void *sourceFrameRef
                                                                           &_decoderFormatDescription);
     
     if(status == noErr) {
-        CFDictionaryRef attrs = NULL;
-        const void *keys[] = { kCVPixelBufferPixelFormatTypeKey };
-        //      kCVPixelFormatType_420YpCbCr8Planar is YUV420
-        //      kCVPixelFormatType_420YpCbCr8BiPlanarFullRange is NV12
-        uint32_t v = kCVPixelFormatType_420YpCbCr8BiPlanarFullRange;
-        const void *values[] = { CFNumberCreate(NULL, kCFNumberSInt32Type, &v) };
-        attrs = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
         
+        NSDictionary* destinationPixelBufferAttributes = @{
+                                                           (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange],
+                                                           //硬解必须是 kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+                                                           //                                                           或者是kCVPixelFormatType_420YpCbCr8Planar
+                                                           //因为iOS是  nv12  其他是nv21
+                                                           (id)kCVPixelBufferWidthKey : [NSNumber numberWithInt:h264outputHeight*2],
+                                                           (id)kCVPixelBufferHeightKey : [NSNumber numberWithInt:h264outputWidth*2],
+                                                           //这里款高和编码反的
+                                                           (id)kCVPixelBufferOpenGLCompatibilityKey : [NSNumber numberWithBool:YES]
+                                                           };
         VTDecompressionOutputCallbackRecord callBackRecord;
         callBackRecord.decompressionOutputCallback = didDecompress;
-        callBackRecord.decompressionOutputRefCon = NULL;
-        
+        callBackRecord.decompressionOutputRefCon = (__bridge void *)self;
         status = VTDecompressionSessionCreate(kCFAllocatorDefault,
                                               _decoderFormatDescription,
-                                              NULL, attrs,
+                                              NULL,
+                                              (__bridge CFDictionaryRef)destinationPixelBufferAttributes,
                                               &callBackRecord,
                                               &_deocderSession);
-        CFRelease(attrs);
+        VTSessionSetProperty(_deocderSession, kVTDecompressionPropertyKey_ThreadCount, (__bridge CFTypeRef)[NSNumber numberWithInt:1]);
+        VTSessionSetProperty(_deocderSession, kVTDecompressionPropertyKey_RealTime, kCFBooleanTrue);
+        
+//        CFDictionaryRef attrs = NULL;
+//        const void *keys[] = { kCVPixelBufferPixelFormatTypeKey };
+//        //      kCVPixelFormatType_420YpCbCr8Planar is YUV420
+//        //      kCVPixelFormatType_420YpCbCr8BiPlanarFullRange is NV12
+//        uint32_t v = kCVPixelFormatType_420YpCbCr8BiPlanarFullRange;
+//        const void *values[] = { CFNumberCreate(NULL, kCFNumberSInt32Type, &v) };
+//        attrs = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+//        
+//        VTDecompressionOutputCallbackRecord callBackRecord;
+//        callBackRecord.decompressionOutputCallback = didDecompress;
+//        callBackRecord.decompressionOutputRefCon = NULL;
+//        
+//        status = VTDecompressionSessionCreate(kCFAllocatorDefault,
+//                                              _decoderFormatDescription,
+//                                              NULL, attrs,
+//                                              &callBackRecord,
+//                                              &_deocderSession);
+//        CFRelease(attrs);
     } else {
         NSLog(@"IOS8VT: reset decoder session failed status=%d", status);
     }
@@ -212,7 +238,7 @@ static void didDecompress( void *decompressionOutputRefCon, void *sourceFrameRef
     //FILE *myout=fopen("output_log.txt","wb+");
     FILE *myout=stdout;
     
-    h264bitstream=fopen(url, "rb+");
+    h264bitstream=fopen(url, "rb");
     if (h264bitstream==NULL){
         printf("Open file error\n");
         return 0;

@@ -7,16 +7,18 @@
 //
 
 #import "ViewController.h"
-#import "KBAudioPlayer.h"
+//#import "KBAudioPlayer.h"
 //#import "KBAudioPlayer1_1.h"
-#import "KBAudioPlayer2_0.h"
-#import "KBVideoPlayerController.h"
+//#import "KBAudioPlayer2_0.h"
+//#import "KBVideoPlayerController.h"
+#import "KBVideoPlayerController1_0.h"
+
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>{
 //    KBAudioPlayer *audioPlayer;
 //    KBAudioPlayer1_1 *audioPlayer;
     
-    KBAudioPlayer2_0 *audioPlayer;
+//    KBAudioPlayer2_0 *audioPlayer;
 
 }
 
@@ -62,12 +64,12 @@ typedef unsigned char BYTE;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = @"播放h264文件";
+    cell.textLabel.text = @"test";
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    KBVideoPlayerController *vc = [[KBVideoPlayerController alloc] init];
+    KBVideoPlayerController1_0 *vc = [[KBVideoPlayerController1_0 alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
